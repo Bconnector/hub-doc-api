@@ -10,8 +10,8 @@ hero:
       text: Começar Agora
       link: /docs/getting-started/overview
     - theme: alt
-      text: Ver no GitHub
-      link: https://github.com/Bconnector/hub-doc-api
+      text: Referência API
+      link: /docs/api/reference
 
 features:
   - title: Canonização de Dados

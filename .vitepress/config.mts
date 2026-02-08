@@ -8,7 +8,8 @@ export default defineConfig({
         nav: [
             { text: 'Home', link: '/' },
             { text: 'Guia', link: '/docs/getting-started/overview' },
-            { text: 'API Swagger', link: 'https://app.swaggerhub.com/apis/BCONNECTORBR/hub-bconnector' }
+            { text: 'Referência API', link: '/docs/api/reference' },
+            { text: 'SwaggerHub', link: 'https://app.swaggerhub.com/apis/BCONNECTORBR/hub-bconnector' }
         ],
         sidebar: [
             {
@@ -17,6 +18,12 @@ export default defineConfig({
                     { text: 'Visão Geral', link: '/docs/getting-started/overview' },
                     { text: 'Autenticação', link: '/docs/auth/authentication' },
                     { text: 'Papéis e Permissões', link: '/docs/core/roles-permissions' }
+                ]
+            },
+            {
+                text: 'API Reference',
+                items: [
+                    { text: 'Documentação Interativa', link: '/docs/api/reference' }
                 ]
             },
             {
