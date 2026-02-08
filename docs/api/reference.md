@@ -9,13 +9,10 @@ Consulte abaixo todos os endpoints, parâmetros e modelos de dados do Hub BConne
 
 <div id="redoc-container"></div>
 
-<script src="https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"></script>
-
 <script>
-  // Aguarda o VitePress carregar completamente no cliente
   if (typeof window !== 'undefined') {
     const checkRedoc = setInterval(() => {
-      if (window.Redoc) {
+      if (typeof Redoc !== 'undefined') {
         clearInterval(checkRedoc);
         Redoc.init(
           '/api/openapi.yaml', 

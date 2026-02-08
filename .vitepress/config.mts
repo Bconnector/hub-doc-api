@@ -3,6 +3,9 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
     title: "Hub BConnector",
     description: "API & Documentation Foundation",
+    head: [
+        ['script', { src: 'https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js' }]
+    ],
     themeConfig: {
         logo: '/logo.png', // Opcional: Adicionar um logo depois
         nav: [
