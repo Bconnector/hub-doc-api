@@ -1,20 +1,20 @@
-# Hub BConnector Integration Platform
+# Hub BConnector | API & Documentation
 
-## Overview
-Modular, multi-tenant integration platform.
+Este repositório contém a documentação técnica e os contratos de API do Hub BConnector.
 
-## Architecture
-- `src/core`: Agnostic logic, domain models, interfaces, and event bus.
-- `src/connectors`: Marketplace-specific implementations (e.g., Mercado Livre).
-- `src/infrastructure`: Database, TokenManager, and external services.
+## 🚀 Acessando a Documentação
 
-## Domain Models
-- `WhiteLabelTenant`
-- `MarketplaceApp`
-- `SellerAccount`
-- `MarketplaceToken`
+- **Site Oficial (Cloudflare Pages)**: [hub-doc-api.pages.dev](https://hub-doc-api.pages.dev)
+- **Contratos de API (SwaggerHub)**: [BCONNECTORBR/hub-bconnector](https://app.swaggerhub.com/apis/BCONNECTORBR/hub-bconnector)
+- **Arquivo OpenAPI Raw**: `/api/openapi.yaml` (Disponível no site e no repositório)
 
-## Setup
-1. `npm install`
-2. Configure Supabase credentials.
-3. Apply migrations.
+## 🛠️ Desenvolvimento Local
+
+1. Instale as dependências: `npm install`
+2. Rode em modo dev: `npm run docs:dev`
+
+## 📦 Estrutura
+
+- `/docs`: Conteúdo conceitual em Markdown.
+- `/public/api`: Contratos OpenAPI (Swagger).
+- `.vitepress`: Configurações do framework de documentação.
