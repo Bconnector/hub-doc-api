@@ -16,4 +16,4 @@ O Hub pode notificar sistemas de terceiros (White Labels ou Fornecedores) sobre 
 Independente da origem, os eventos são transformados em um formato canônico antes de serem processados pela lógica de negócio do Hub.
 
 ---
-[Ver Configuração de Webhooks na API](../api/openapi.yaml#L31)
+[Ver Configuração de Webhooks na API](/api/openapi.yaml)

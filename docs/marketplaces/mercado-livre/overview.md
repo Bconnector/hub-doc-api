@@ -17,4 +17,4 @@ O Mercado Livre é o marketplace primário do Hub BConnector. A integração é 
 3. **Etiquetas**: As etiquetas são geradas no ML e disponibilizadas no Hub para o Fornecedor/Operador.
 
 ---
-[Ver Endpoints de Pedidos na API](../api/openapi.yaml#L95)
+[Ver Endpoints de Pedidos na API](/api/openapi.yaml)

@@ -14,4 +14,4 @@ O **Hub BConnector** é uma solução multi-tenant e white label projetada para 
 3. [Produtos](../api/openapi.yaml): Veja como criar produtos canônicos via API.
 
 ---
-[Ver Contratos da API (Swagger)](../api/openapi.yaml) | [Repositório Git](https://github.com/Bconnector/hub-doc-api)
+[Ver Contratos da API (Swagger)](/api/openapi.yaml) | [Repositório Git](https://github.com/Bconnector/hub-doc-api)

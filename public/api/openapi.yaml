@@ -117,7 +117,9 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
-      description: Use a chave de API fornecida para autenticação. Exemplo: `7bb6be21-d76e-4b76-acab-37afb0eaa057`
+      description: >
+        Use a chave de API fornecida para autenticação. 
+        Exemplo: 7bb6be21-d76e-4b76-acab-37afb0eaa057
     BearerAuth:
       type: http
       scheme: bearer

@@ -20,4 +20,4 @@ Para que o Hub opere em nome de um Seller no Mercado Livre, é necessário reali
 > A integração com o Mercado Livre no Hub BConnector é otimizada para múltiplos sellers (multi-account) dentro de um único White Label.
 
 ---
-[Ver Endpoints de Autenticação na API](../api/openapi.yaml#L33)
+[Ver Endpoints de Autenticação na API](/api/openapi.yaml)

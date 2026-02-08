@@ -21,4 +21,4 @@ Representa o parceiro que fornece os produtos e estoque.
 - **Restrições**: Não visualiza configurações globais, dados de outros fornecedores ou payloads internos de outros marketplaces.
 
 ---
-[Ver detalhes de Produtos e Fornecedores na API](../api/openapi.yaml#L36)
+[Ver detalhes de Produtos e Fornecedores na API](/api/openapi.yaml)
