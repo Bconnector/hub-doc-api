@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: Hub BConnector API
+  description: |
+    API de integração do Hub BConnector. 
+    Este hub atua como camada intermediária entre ERPs e Marketplaces, 
+    provendo canonização de dados e sincronização multi-tenant.
+    
+    ### Papéis de Acesso (Roles)
+    - **Operador (Admin/White Label)**: Acesso total ao sistema, configurações globais e logs.
+    - **Fornecedor (Supplier)**: Visão limitada aos seus próprios produtos, estoques e sincronizações.
+  version: 1.0.0
+servers:
+  - url: https://api.bconnector.com.br/v1
+    description: Production Server (v1)
+
+tags:
+  - name: Auth
+    description: Autenticação e Autorização
+  - name: Core
+    description: Gestão de White Labels, Sellers e Fornecedores
+  - name: Products
+    description: Gestão de Produtos Canônicos e Blueprints
+  - name: Stock
+    description: Controle e Sincronização de Estoque
+  - name: Orders
+    description: Gestão de Pedidos (Mercado Livre e outros)
+  - name: Webhooks
+    description: Assinaturas de eventos
+
+paths:
+  /auth/mercado-livre/callback:
+    get:
+      tags:
+        - Auth
+      summary: OAuth Callback do Mercado Livre
+      description: |
+        Endpoint para receber o code/token do Mercado Livre após autorização do seller.
+        **Permissão**: Operador
+      responses:
+        '200':
+          description: Sucesso na autorização
+  
+  /products:
+    get:
+      tags:
+        - Products
+      summary: Listar produtos canônicos
+      description: |
+        Retorna a lista de produtos. Se o perfil for **Fornecedor**, retorna apenas seus itens.
+        **Permissão**: Operador, Fornecedor
+      responses:
+        '200':
+          description: Lista de produtos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+    post:
+      tags:
+        - Products
+      summary: Criar produto canônico
+      description: |
+        Cria um novo produto na base canônica do hub.
+        **Permissão**: Operador, Fornecedor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductInput'
+      responses:
+        '201':
+          description: Produto criado
+
+  /stock/sync:
+    post:
+      tags:
+        - Stock
+      summary: Atualização manual de estoque (Webhook ERP Simulator)
+      description: |
+        Recebe atualização de estoque (ex: via Bling) e dispara replicação.
+        **Permissão**: Operador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockUpdate'
+      responses:
+        '202':
+          description: Atualização aceita para processamento
+
+  /orders/mercado-livre/{order_id}:
+    get:
+      tags:
+        - Orders
+      summary: Consulta pedido no Mercado Livre
+      description: |
+        Busca detalhes de um pedido específico diretamente ou via cache do Hub.
+        **Permissão**: Operador
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes do pedido
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: Use a chave de API fornecida para autenticação. Exemplo: `7bb6be21-d76e-4b76-acab-37afb0eaa057`
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        sku_canonical:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        supplier_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [active, inactive, draft]
+        created_at:
+          type: string
+          format: date-time
+
+    ProductInput:
+      type: object
+      required: [sku_canonical, name, supplier_id]
+      properties:
+        sku_canonical:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        supplier_id:
+          type: string
+          format: uuid
+
+    StockUpdate:
+      type: object
+      required: [sku, quantity]
+      properties:
+        sku:
+          type: string
+        quantity:
+          type: integer
+        warehouse_id:
+          type: string
+
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        external_id:
+          type: string
+        status:
+          type: string
+        total_amount:
+          type: number
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              sku:
+                type: string
+              quantity:
+                type: integer
+              unit_price:
+                type: number

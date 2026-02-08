@@ -1,0 +1,118 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "BConnector Hub Product API",
+        "version": "1.0.0",
+        "description": "API for ingesting and publishing products to multiple marketplaces."
+    },
+    "servers": [
+        {
+            "url": "https://hub-api.bconnector.workers.dev/v1"
+        }
+    ],
+    "security": [
+        {
+            "ApiKeyAuth": []
+        }
+    ],
+    "paths": {
+        "/products/send": {
+            "post": {
+                "summary": "Send a product for ingestion and listing",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ProductSendRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Product accepted and processing started"
+                    },
+                    "401": {
+                        "description": "Unauthorized - Invalid API Key"
+                    },
+                    "400": {
+                        "description": "Bad Request - Invalid payload"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "ApiKeyAuth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-API-KEY"
+            }
+        },
+        "schemas": {
+            "ProductSendRequest": {
+                "type": "object",
+                "required": [
+                    "marketplace",
+                    "product",
+                    "seller_id",
+                    "marketplace_app_id"
+                ],
+                "properties": {
+                    "marketplace": {
+                        "type": "string",
+                        "enum": [
+                            "mercado_livre"
+                        ]
+                    },
+                    "seller_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "marketplace_app_id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "product": {
+                        "type": "object",
+                        "required": [
+                            "external_id",
+                            "title"
+                        ],
+                        "properties": {
+                            "external_id": {
+                                "type": "string"
+                            },
+                            "title": {
+                                "type": "string"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "brand": {
+                                "type": "string"
+                            },
+                            "attributes": {
+                                "type": "object"
+                            },
+                            "images": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "variations": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
